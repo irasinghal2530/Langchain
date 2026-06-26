@@ -1,0 +1,54 @@
+Problem in one line
+
+Why do we need Output Parsers?
+
+LLMs return messy natural language
+Code needs structured data
+
+What Output Parsers do
+
+They act like a translator between AI text and machine format
+
+LLM output (text)
+        ↓
+Output Parser
+        ↓
+Structured Python object
+
+
+
+1. String Output Parser (simplest)
+
+Just returns text cleanly:
+
+from langchain_core.output_parsers import StrOutputParser
+Use case:
+chatbot responses
+summaries
+2. JSON / Structured Output Parser
+
+For structured data:
+
+{
+  "name": "Apple",
+  "color": "Red"
+}
+
+Use:
+
+JsonOutputParser
+3. Pydantic Output Parser (very important)
+
+You define a schema:
+
+from pydantic import BaseModel
+
+class Fruit(BaseModel):
+    name: str
+    color: str
+
+LangChain forces model to follow it.
+
+
+
+### For structured out
