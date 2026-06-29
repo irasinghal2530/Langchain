@@ -1,34 +1,27 @@
-from typing import TypedDict
+from typing import TypedDict, Annotated
 from dotenv import load_dotenv
-from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 load_dotenv()
 
-model = ChatOpenAI()
+# Initialize Gemini model
+model = ChatGoogleGenerativeAI(
+    model="gemini-2.5-flash",
+    temperature=0
+)
 
-# schema
-
+# Define the schema
 class Review(TypedDict):
-    rating: int
     summary: str
-    is_positive: bool
+    sentiment: str
 
-# prompt
+# Create structured output model
+structured_model = model.with_structured_output(Review)
 
-prompt = """You are a helpful assistant that analyzes product reviews.
+# Invoke the model
+result = structured_model.invoke(
+    """AI is both a boon and a bane. With all the upsides that AI has, and all the benefits that people are deriving from it, it is still creating a lot of negative impacts, and many people are misusing it to a great extent."""
+)
 
-Review: {review}
-
-Extract the following information:
-- rating: The rating given in the review (1-5)
-- summary: A brief summary of the review
-- is_positive: Whether the review is positive (True/False)
-
-Return the information in the following format:
-{{
-    "rating": <rating>,
-    "summary": "<summary>",
-    "is_positive": <is_positive>
-}}
-"""
-print(rating)
+print(result["summary"])
+print(result["sentiment"])
