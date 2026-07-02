@@ -1,0 +1,37 @@
+## What is a Chain?
+
+A **Chain** is a sequence of components connected together so that the output of one component becomes the input of the next.
+
+Instead of manually calling each component one by one, LangChain allows them to be connected into a single pipeline.
+
+Without a chain:
+
+```
+User Input
+     │
+     ▼
+Prompt
+     │
+     ▼
+Model
+     │
+     ▼
+Parser
+     │
+     ▼
+Final Output
+```
+
+With a chain:
+
+```
+User Input
+     │
+     ▼
+Prompt → Model → Parser
+     │
+     ▼
+Final Output
+```
+
+A chain simplifies the workflow by combining multiple steps into one reusable pipeline.
